@@ -64,8 +64,12 @@
 					this.onRejectedCallbacks.forEach(fn => fn())
 				}
 			}
-			// 默认让执行器执行
-			executor(resolve, reject)
+			try {
+				// 默认让执行器执行
+				executor(resolve, reject)
+			} catch (e) {
+				reject(e)
+			}
 		}
 		then(onFulfilled, onRejected) {
 			// 穿透 .then().then()
